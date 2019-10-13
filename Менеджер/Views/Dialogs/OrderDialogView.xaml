@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="Менеджер.OrderDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Менеджер"
+             mc:Ignorable="d" 
+             Background="{DynamicResource MaterialDesignPaper}">
+    <StackPanel Margin="16">
+        <ComboBox  materialDesign:HintAssist.Hint="Модель" Style="{StaticResource DialogComboBox}"></ComboBox>
+        <ComboBox  materialDesign:HintAssist.Hint="Ёмкость" Style="{StaticResource DialogComboBox}"></ComboBox>
+        <ComboBox  materialDesign:HintAssist.Hint="Цвет" Style="{StaticResource DialogComboBox}"></ComboBox>
+        <TextBox  Style="{StaticResource DialogTextBox}"
+            materialDesign:HintAssist.Hint="Номер телефона"
+ MaxLength="17" 
+           >
+            <TextBox.Text>
+                <Binding
+      Path="Phone"
+      Mode="TwoWay"
+      UpdateSourceTrigger="PropertyChanged">
+                </Binding>
+            </TextBox.Text>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewMouseDown">
+                    <ei:CallMethodAction MethodName="OnLeftMouseClicked" TargetObject="{Binding}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <ei:CallMethodAction MethodName="OnLeftButtonClicked" TargetObject="{Binding}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewTextInput">
+                    <ei:CallMethodAction MethodName="PreviewTextInput_Phone" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <TextBox materialDesign:HintAssist.Hint="Имя"  Style="{StaticResource DialogTextBox}"></TextBox>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}">
+                ДОБАВИТЬ
+            </Button>
+            <Button IsCancel="True" Margin="16 0 0 0" Style="{DynamicResource MaterialDesignFlatButton}"
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+                ОТМЕНА
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
