@@ -28,7 +28,7 @@ namespace Менеджер
                 (collection as ObservableCollection<Provider>).Add(new Provider()
                 {
                     ProviderID = 0,
-                    Title = null
+                    Title = ""
                 });
                 foreach (DataRow dr in dataSet.Tables[0].Rows)
                 {
@@ -45,7 +45,7 @@ namespace Менеджер
                 (collection as ObservableCollection<Model>).Add(new Model()
                 {
                     ModelID = 0,
-                    Title = null
+                    Title = ""
                 });
                 foreach (DataRow dr in dataSet.Tables[0].Rows)
                 {
@@ -62,7 +62,7 @@ namespace Менеджер
                 (collection as ObservableCollection<Memory>).Add(new Memory()
                 {
                     MemoryID = 0,
-                    Size = null
+                    Size = ""
                 });
                 foreach (DataRow dr in dataSet.Tables[0].Rows)
                 {
@@ -79,7 +79,7 @@ namespace Менеджер
                 (collection as ObservableCollection<Color>).Add(new Color()
                 {
                     ColorID = 0,
-                    Title = null
+                    Title = ""
                 });
                 foreach (DataRow dr in dataSet.Tables[0].Rows)
                 {

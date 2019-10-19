@@ -10,12 +10,36 @@
              xmlns:local="clr-namespace:Менеджер"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             Background="{DynamicResource MaterialDesignPaper}"> 
+             Background="{DynamicResource MaterialDesignPaper}"
+             x:Name="ProductDialogView">
     <StackPanel Margin="16">
-        <ComboBox  materialDesign:HintAssist.Hint="Модель" Style="{StaticResource DialogComboBox}"> </ComboBox>
-        <ComboBox  materialDesign:HintAssist.Hint="Цвет" Style="{StaticResource DialogComboBox}"></ComboBox>
-        <ComboBox  materialDesign:HintAssist.Hint="Ёмкость" Style="{StaticResource DialogComboBox}"></ComboBox>
-        <ComboBox  materialDesign:HintAssist.Hint="Поставщик" Style="{StaticResource DialogComboBox}"></ComboBox>
+        <ComboBox ItemsSource="{Binding Models}" DisplayMemberPath="Title" SelectedValuePath="ModelID" 
+           Style="{StaticResource DialogComboBox}"
+            materialDesign:HintAssist.Hint="Модель">
+            <ComboBox.SelectedValue>
+                <Binding  
+      Path="SelectedModelID"
+      Mode="TwoWay"
+      UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <local:NotSelectedComboBoxValidationRule
+          ValidatesOnTargetUpdated="False"  />
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedValue>
+        </ComboBox>
+        <ComboBox ItemsSource="{Binding Colors}" DisplayMemberPath="Title" SelectedValuePath="ColorID" SelectedValue="{Binding SelectedColorID , Mode=TwoWay}"
+           Style="{StaticResource DialogComboBox}"
+            materialDesign:HintAssist.Hint="Цвет">
+        </ComboBox>
+        <ComboBox ItemsSource="{Binding Memory}" DisplayMemberPath="Size" SelectedValuePath="MemoryID" SelectedValue="{Binding SelectedMemoryID , Mode=TwoWay}"
+            Style="{StaticResource DialogComboBox}"
+            materialDesign:HintAssist.Hint="Ёмкость">
+        </ComboBox>
+        <ComboBox ItemsSource="{Binding Providers}" DisplayMemberPath="Title" SelectedValuePath="ProviderID" SelectedValue="{Binding SelectedProviderID , Mode=TwoWay}"
+            materialDesign:HintAssist.Hint="Поставщик"
+            Style="{StaticResource DialogComboBox}">
+        </ComboBox>
         <TextBox materialDesign:HintAssist.Hint="Номер партии" Style="{StaticResource DialogTextBox}" MaxLength="9">
             <TextBox.Text>
                 <Binding
@@ -35,17 +59,32 @@
                     <ei:CallMethodAction MethodName="PreviewTextInput_PartNo" TargetObject="{Binding}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-
         </TextBox>
-        <TextBox materialDesign:HintAssist.Hint="Количество" Style="{StaticResource DialogTextBox}"></TextBox>
-        <TextBox materialDesign:HintAssist.Hint="Цена" Style="{StaticResource DialogTextBox}"></TextBox>
+
+        <TextBox materialDesign:HintAssist.Hint="Количество" Style="{StaticResource DialogTextBox}" Text="{Binding QuantityDelivered}"></TextBox>
+        <TextBox materialDesign:HintAssist.Hint="Цена" Style="{StaticResource DialogTextBox}" Text="{Binding Price}"></TextBox>
+        <TextBox materialDesign:HintAssist.Hint="Розничная цена" Style="{StaticResource DialogTextBox}" Text="{Binding RetailPrice}">
+            <!--<i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewTextInput">
+                    <ei:CallMethodAction MethodName="PreviewTextInput_RetailPrice" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+        </TextBox>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}">
+            <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"  Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Cursor="Hand" Foreground="#FF303030">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click" >
+                        <ei:CallMethodAction MethodName="Click_AddButton" TargetObject="{Binding }"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 ДОБАВИТЬ
             </Button>
             <Button IsCancel="True" Margin="16 0 0 0" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="#FF303030">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>

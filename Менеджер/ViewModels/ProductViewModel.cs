@@ -26,7 +26,6 @@ namespace Менеджер
 
         public ProductViewModel()
         {
-          
             ProductModels = new ObservableCollection<ProductModel>();
             FillProductModels();
             Models = ((IFillComboBox)this).FillComboBox<Model>("sp_Models", connectionString);
@@ -48,7 +47,7 @@ namespace Менеджер
                 adapter = new SqlDataAdapter(command);
                 dataSet = new DataSet();
                 connection.Open();
-                command.Parameters.AddWithValue("@Model",SelectedModel);
+                    command.Parameters.AddWithValue("@Model",SelectedModel);
                 command.Parameters.AddWithValue("@Color", SelectedColor);
                 command.Parameters.AddWithValue("@SizeMemory", SelectedMemory);
                 command.Parameters.AddWithValue("@Provider", SelectedProvider);
@@ -72,7 +71,12 @@ namespace Менеджер
                         AmountOfVAT = Convert.ToDouble(dr[9].ToString()),
                         CostWithVAT = Convert.ToDouble(dr[10].ToString()),
                         DateSupply = Convert.ToDateTime(dr[11]).ToShortDateString(),
-                        ProviderName = Convert.ToString(dr[12].ToString())
+                        ProviderName = Convert.ToString(dr[12].ToString()),
+                        SupplyID = Convert.ToInt32(dr[13].ToString()),
+                        ModelID = Convert.ToInt32(dr[14].ToString()),
+                        MemoryID = Convert.ToInt32(dr[15].ToString()),
+                        ColorID = Convert.ToInt32(dr[16].ToString()),
+                        ProviderID = Convert.ToInt32(dr[17].ToString())
                     });
                 }
             }
@@ -97,6 +101,7 @@ namespace Менеджер
 
         #region Dialog
         public ICommand RunDialogAddProductCommand => new AnotherCommandImplementation(AddProductCommand);
+        public ICommand RunDialogEditProductCommand => new AnotherCommandImplementation(EditProductCommand);
 
         private async void AddProductCommand(object o)
         {
@@ -105,19 +110,36 @@ namespace Менеджер
                 DataContext = new ProductDialogViewModel()
             };
            
-            var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
-       
-            Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
+            var result = await DialogHost.Show(view, "RootDialog");
+            if ((bool)result == true)
+            {
+                ProductModels.Clear();
+                FillProductModels();
+            }
         }
 
-        private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+        private async void EditProductCommand(object o)
         {
-            Console.WriteLine("You can intercept the closing event, and cancel here.");
+            var view = new ProductDialog
+            {
+                DataContext = new ProductDialogViewModel(SelectedProductModel.ModelID, SelectedProductModel.ColorID, SelectedProductModel.MemoryID,  SelectedProductModel.ProviderID, SelectedProductModel.SupplyID , SelectedProductModel.PartNo, SelectedProductModel.QuantityDelivered, SelectedProductModel.Price, SelectedProductModel.RetailPrice)
+            };
+
+            var result = await DialogHost.Show(view, "RootDialog");
+            if ((bool)result == true)
+            {
+                ProductModels.Clear();
+                FillProductModels();
+            }
         }
+
+
         #endregion
 
         #region Property
         public ObservableCollection<ProductModel> ProductModels { get; set; }
+
+        public ProductModel SelectedProductModel { get; set; }
 
         public ObservableCollection<Model> Models { get; set; }
 
@@ -215,6 +237,7 @@ namespace Менеджер
         #endregion
 
         #region Method
+
         public void OnLeftButtonClicked(object obj, KeyEventArgs e)
         {
             if (e.Key == Key.Left)
@@ -224,18 +247,12 @@ namespace Менеджер
                 (obj as TextBox).SelectionStart = (obj as TextBox).Text.Length;
             }
         }
-
+    
         public void OnLeftMouseClicked(object obj, MouseButtonEventArgs e)
         {
             (obj as TextBox).Focus();
             e.Handled = true;
             (obj as TextBox).SelectionStart = (obj as TextBox).Text.Length;
-        }
-
-        public void PreviewTextInput_PartNo(object obj, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9A-Z]+");
-            e.Handled = regex.IsMatch(e.Text);
         }
         #endregion
     }
@@ -319,6 +336,19 @@ namespace Менеджер
 //        }
 //    };
 
+//}
+
+//public void PreviewTextInpurt_PartNo(object obj, TextCompositionEventArgs e)
+//{
+//    e.Handled = true;
+//    Console.WriteLine("X." + Regex.IsMatch(e.Text, @"^[0-9]{1,8}(?:\.)"));
+//    Console.WriteLine("X.X" + Regex.IsMatch(e.Text, @"^[0-9]{1,8}(?:\.[0-9])"));
+//    Console.WriteLine("X.XX" + Regex.IsMatch(e.Text, @"^[0-9]{1,8}(?:\.[0-9][0-9])"));
+
+//    //if (Regex.IsMatch(e.Text, @"^[0-9]{1,8}(?:\.)") || Regex.IsMatch(e.Text, @"^[0-9]{1,8}(?:\.[0-9])") || Regex.IsMatch(e.Text, @"^[0-9]{1,8}(?:\.[0-9][0-9])"))
+
+
+//    //    e.Handled = false;
 //}
 
 

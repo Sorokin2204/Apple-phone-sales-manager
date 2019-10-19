@@ -17,7 +17,7 @@
             <ColumnDefinition Width="200"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <materialDesign:ColorZone Mode="PrimaryMid" VerticalAlignment="Stretch" Grid.Column="0">
+        <materialDesign:ColorZone Mode="Dark" VerticalAlignment="Stretch" Grid.Column="0">
             <StackPanel>
                 <materialDesign:ColorZone
                Style="{StaticResource ColorZoneBase}">
@@ -25,7 +25,7 @@
            Style="{StaticResource ColorZoneComboBox}"
             materialDesign:HintAssist.Hint="Выберите модель">
                     </ComboBox>
-            
+
                 </materialDesign:ColorZone>
                 <materialDesign:ColorZone
                 Style="{StaticResource ColorZoneBase}">
@@ -39,8 +39,6 @@
                     <ComboBox ItemsSource="{Binding Memory}" DisplayMemberPath="Size" SelectedValuePath="Size" SelectedValue="{Binding SelectedMemory , Mode=TwoWay}"
             Style="{StaticResource ColorZoneComboBox}"
             materialDesign:HintAssist.Hint="Выберите ёмкость" >
-  
-
                     </ComboBox>
 
                 </materialDesign:ColorZone>
@@ -94,7 +92,7 @@
                         </i:Interaction.Triggers>
                     </TextBox>
                 </materialDesign:ColorZone>
-                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,4,0,0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,4,0,0" materialDesign:ShadowAssist.ShadowDepth="Depth0" Background="#FF303030" BorderBrush="#FF303030" Cursor="Hand">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <ei:CallMethodAction MethodName="Click" TargetObject="{Binding}" />
@@ -113,7 +111,7 @@
             </StackPanel>
         </materialDesign:ColorZone>
         <DockPanel LastChildFill="False" Grid.Column="1">
-            <DataGrid Style="{StaticResource DataGridStyle}" DockPanel.Dock="Top" ItemsSource="{Binding ProductModels}">
+            <DataGrid Style="{StaticResource DataGridStyle}" DockPanel.Dock="Top" ItemsSource="{Binding ProductModels}" SelectedItem="{Binding SelectedProductModel,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path='NumberRow'}" Header="№"/>
                     <DataGridTextColumn Binding="{Binding Path='Model'}" Header="Модель"/>
@@ -129,14 +127,17 @@
                     <DataGridTextColumn Binding="{Binding Path='CostWithVAT'}" Header="Стоимость с НДС" />
                     <DataGridTextColumn Binding="{Binding Path='DateSupply'}" Header="Дата поставки" />
                     <DataGridTextColumn Binding="{Binding Path='ProviderName'}" Header="Поставщик" />
+                    <DataGridTextColumn Binding="{Binding Path='SupplyID'}" Visibility="Hidden"/>
+                    <DataGridTextColumn Binding="{Binding Path='ModelID'}" Visibility="Hidden"/>
+                    <DataGridTextColumn Binding="{Binding Path='MemoryID'}" Visibility="Hidden"/>
+                    <DataGridTextColumn Binding="{Binding Path='ColorID'}" Visibility="Hidden"/>
+                    <DataGridTextColumn Binding="{Binding Path='ProviderID'}" Visibility="Hidden"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem  Header="Редактировать"></MenuItem>
+                        <MenuItem Header="Редактировать"  Command="{Binding RunDialogEditProductCommand}"></MenuItem>
                     </ContextMenu>
-
                 </DataGrid.ContextMenu>
-                
             </DataGrid>
             <Button DockPanel.Dock="Bottom"
   Style="{StaticResource AddButton}"

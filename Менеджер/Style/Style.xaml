@@ -52,7 +52,4 @@
         <Setter Property="VerticalAlignment" Value="Bottom" />
         <Setter Property="ToolTip" Value="Добавить" />
     </Style>
-    <Style x:Key="MenuItem" TargetType="{x:Type MenuItem}"  BasedOn="{StaticResource MaterialDesignMenuItem}">
-        <Setter Property="Padding" Value="0"></Setter>
-    </Style>
 </ResourceDictionary>

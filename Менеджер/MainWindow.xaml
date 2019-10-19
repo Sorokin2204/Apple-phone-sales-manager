@@ -25,7 +25,7 @@
                 </Grid.ColumnDefinitions>
                 <materialDesign:ColorZone x:Name="ColorZone" Grid.Column="1"
                                            DockPanel.Dock="Top"
-                                          Mode="PrimaryMid" Grid.Row="0"  >
+                                          Mode="Dark" Grid.Row="0"  >
                     <Grid 
   Margin="4" DockPanel.Dock="Top" VerticalAlignment="Top">
 
@@ -51,7 +51,7 @@
                         </RadioButton>
                     </Grid>
                 </materialDesign:ColorZone>
-                <Grid x:Name="Logo" Background="{StaticResource PrimaryHueMidBrush}" Grid.Column="0"/>
+                <Grid x:Name="Logo" Background="#FF303030" Grid.Column="0"/>
             </Grid>
             <ContentControl  Grid.Row="1" Content="{Binding TablePanel}"/>
         </Grid>

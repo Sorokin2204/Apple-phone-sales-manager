@@ -22,5 +22,12 @@ namespace Менеджер
         public double CostWithVAT { get; set; }
         public string DateSupply { get; set; }
         public string ProviderName { get; set; }
+
+        public int SupplyID { get; set; }
+        public int ModelID { get; set; }
+        public int MemoryID { get; set; }
+        public int ColorID { get; set; }
+        public int ProviderID { get; set; }
+
     }
 }
