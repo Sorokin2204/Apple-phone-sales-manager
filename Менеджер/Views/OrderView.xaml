@@ -20,40 +20,45 @@
         </Grid.ColumnDefinitions>
         <materialDesign:ColorZone Mode="PrimaryMid" VerticalAlignment="Stretch" Grid.Column="0">
             <StackPanel>
-                <materialDesign:ColorZone
+                <materialDesign:ColorZone 
               Style="{StaticResource ColorZoneBase}" >
-                    <TextBox Style="{StaticResource ColorZoneTextBox}" 
+                    <TextBox Style="{StaticResource ColorZoneTextBox}"   Text="{Binding Path=Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
             materialDesign:HintAssist.Hint="Введите номер заказа"
-            />
+            >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewTextInput">
+                                <ei:CallMethodAction MethodName="PreviewTextInput_Number" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
                 </materialDesign:ColorZone>
                 <materialDesign:ColorZone
                 Style="{StaticResource ColorZoneBase}">
                     <DatePicker
-            materialDesign:HintAssist.Hint="Введите дату заказа"
+            materialDesign:HintAssist.Hint="Введите дату заказа" Text="{Binding Path=Date,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
   Style="{StaticResource ColorZoneDatePicker}" />
                 </materialDesign:ColorZone>
 
                 <materialDesign:ColorZone
               Style="{StaticResource ColorZoneBase}" >
-                    <TextBox Style="{StaticResource ColorZoneTextBox}" 
+                    <TextBox Style="{StaticResource ColorZoneTextBox}" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
             materialDesign:HintAssist.Hint="Введите имя"
 
-            />
+            >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewTextInput">
+                                <ei:CallMethodAction MethodName="PreviewTextInput_Name" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
                 </materialDesign:ColorZone>
 
                 <materialDesign:ColorZone   
               Style="{StaticResource ColorZoneBase}" >
-                    <TextBox  Style="{StaticResource ColorZoneTextBox}" 
+                    <TextBox  Style="{StaticResource ColorZoneTextBox}" Text="{Binding Path=Phone,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
             materialDesign:HintAssist.Hint="Введите номер телефона"
  MaxLength="17" 
            >
-                        <TextBox.Text>
-                            <Binding
-      Path="Phone"
-      Mode="TwoWay"
-      UpdateSourceTrigger="PropertyChanged">
-                            </Binding>
-                        </TextBox.Text>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseDown">
                                 <ei:CallMethodAction MethodName="OnLeftMouseClicked" TargetObject="{Binding}" />
@@ -78,20 +83,25 @@
                                     НАЙТИ
                         </TextBlock>
                     </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction MethodName="Click" TargetObject="{Binding}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
         </materialDesign:ColorZone>
         <DockPanel LastChildFill="False" Grid.Column="1">
-            <DataGrid Style="{StaticResource DataGridStyle}" DockPanel.Dock="Top">
+            <DataGrid Style="{StaticResource DataGridStyle}" DockPanel.Dock="Top" ItemsSource="{Binding OrderModels}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Title}" Header="Дата"/>
-                    <DataGridTextColumn Binding="{Binding Title}" Header="Номер заказа"/>
-                    <DataGridTextColumn Binding="{Binding Company}" Header="Телефон" />
-                    <DataGridTextColumn Binding="{Binding Company}" Header="Ёмкость" />
-                    <DataGridTextColumn Binding="{Binding Company}" Header="Цвет" />
-                    <DataGridTextColumn Binding="{Binding Company}" Header="Имя" />
-                    <DataGridTextColumn Binding="{Binding Company}" Header="Номер телефона" />
-                    <DataGridTextColumn Binding="{Binding Company}" Header="Адрес" />
+                    <DataGridTextColumn Binding="{Binding Date}" Header="Дата"/>
+                    <DataGridTextColumn Binding="{Binding Number}" Header="Номер заказа"/>
+                    <DataGridTextColumn Binding="{Binding Model}" Header="Модель" />
+                    <DataGridTextColumn Binding="{Binding Memory}" Header="Ёмкость" />
+                    <DataGridTextColumn Binding="{Binding Color}" Header="Цвет" />
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Имя" />
+                    <DataGridTextColumn Binding="{Binding Telephone}" Header="Номер телефона" />
+                    <DataGridTextColumn Binding="{Binding Address}" Header="Адрес" />
                 </DataGrid.Columns>
             </DataGrid>
             <Button DockPanel.Dock="Bottom"

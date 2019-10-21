@@ -15,7 +15,6 @@
      
         <TextBox materialDesign:HintAssist.Hint="Название" Style="{StaticResource DialogTextBox}"></TextBox>
         <TextBox materialDesign:HintAssist.Hint="Адрес" Style="{StaticResource DialogTextBox}"></TextBox>
-        <TextBox materialDesign:HintAssist.Hint="Страна" Style="{StaticResource DialogTextBox}"></TextBox>
         <TextBox  Style="{StaticResource DialogTextBox}"
             materialDesign:HintAssist.Hint="Номер телефона"
  MaxLength="17" 

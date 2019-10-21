@@ -8,7 +8,8 @@ namespace Менеджер
 {
     class OrderModel
     {
-        public DateTime Date { get; set; }
+        public int NumberRow { get; set; }
+        public string Date { get; set; }
 
         public string Number { get; set; }
 

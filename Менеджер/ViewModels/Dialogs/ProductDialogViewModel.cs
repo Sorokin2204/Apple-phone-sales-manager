@@ -24,10 +24,10 @@ namespace Менеджер
 
         public ProductDialogViewModel()
         {
-            Models = ((IFillComboBox)this).FillComboBox<Model>("sp_Models", connectionString);
-            Memory = ((IFillComboBox)this).FillComboBox<Memory>("sp_Memory", connectionString);
-            Colors = ((IFillComboBox)this).FillComboBox<Color>("sp_Colors", connectionString);
-            Providers = ((IFillComboBox)this).FillComboBox<Provider>("sp_Providers", connectionString);
+            Models = ((IFillComboBox)this).FillComboBox<Model>("sp_Models_Products", 0,0,0, connectionString);
+            Memory = ((IFillComboBox)this).FillComboBox<Memory>("sp_Memory",0,0,0, connectionString);
+            Colors = ((IFillComboBox)this).FillComboBox<Color>("sp_Colors",0,0,0, connectionString);
+            Providers = ((IFillComboBox)this).FillComboBox<Provider>("sp_Providers",0,0,0, connectionString);
         }
 
         public ProductDialogViewModel(int modelID, int colorID, int memoryID, int providerID , int supplyID,string partNo ,int quantityDelivered, double price, double retailPrice) : this()
@@ -85,8 +85,6 @@ namespace Менеджер
         }
 
         #region Property
-
-        public ObservableCollection<ProductModel> ProductModels { get; set; }
 
         public ObservableCollection<Model> Models { get; set; }
 

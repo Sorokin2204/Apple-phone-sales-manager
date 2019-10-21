@@ -22,10 +22,17 @@
 
                 <materialDesign:ColorZone
               Style="{StaticResource ColorZoneBase}" >
-                    <TextBox Style="{StaticResource ColorZoneTextBox}" 
+                    <TextBox Style="{StaticResource ColorZoneTextBox}" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
             materialDesign:HintAssist.Hint="Введите название"
-            />
-                    
+
+            >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewTextInput">
+                                <ei:CallMethodAction MethodName="PreviewTextInput_Name" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+
                 </materialDesign:ColorZone>
                 <materialDesign:ColorZone   
               Style="{StaticResource ColorZoneBase}" >

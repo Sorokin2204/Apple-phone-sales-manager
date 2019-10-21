@@ -28,10 +28,10 @@ namespace Менеджер
         {
             ProductModels = new ObservableCollection<ProductModel>();
             FillProductModels();
-            Models = ((IFillComboBox)this).FillComboBox<Model>("sp_Models", connectionString);
-            Memory = ((IFillComboBox)this).FillComboBox<Memory>("sp_Memory", connectionString);
-            Colors = ((IFillComboBox)this).FillComboBox<Color>("sp_Colors", connectionString);
-            Providers = ((IFillComboBox)this).FillComboBox<Provider>("sp_Providers", connectionString);
+            Models = ((IFillComboBox)this).FillComboBox<Model>("sp_Models_Products", 0,0,0 ,connectionString);
+            Memory = ((IFillComboBox)this).FillComboBox<Memory>("sp_Memory",0,0,0, connectionString);
+            Colors = ((IFillComboBox)this).FillComboBox<Color>("sp_Colors" ,0,0,0, connectionString);
+            Providers = ((IFillComboBox)this).FillComboBox<Provider>("sp_Providers", 0,0,0, connectionString);
         }
         
         public void FillProductModels()
