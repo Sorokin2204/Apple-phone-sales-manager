@@ -96,7 +96,7 @@
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center" VerticalAlignment="Center" >
             <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Cursor="Hand">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>

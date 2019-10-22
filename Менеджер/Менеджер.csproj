@@ -39,6 +39,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Expression.Interaction" Version="3.0.40218.0" />
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.0" />
     <PackageReference Include="MaterialDesignThemes" Version="2.6.0" />

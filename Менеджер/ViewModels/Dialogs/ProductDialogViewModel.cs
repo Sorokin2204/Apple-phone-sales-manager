@@ -24,6 +24,7 @@ namespace Менеджер
 
         public ProductDialogViewModel()
         {
+            ButtonContent = "ДОБАВИТЬ";
             Models = ((IFillComboBox)this).FillComboBox<Model>("sp_Models_Products", 0,0,0, connectionString);
             Memory = ((IFillComboBox)this).FillComboBox<Memory>("sp_Memory",0,0,0, connectionString);
             Colors = ((IFillComboBox)this).FillComboBox<Color>("sp_Colors",0,0,0, connectionString);
@@ -32,6 +33,7 @@ namespace Менеджер
 
         public ProductDialogViewModel(int modelID, int colorID, int memoryID, int providerID , int supplyID,string partNo ,int quantityDelivered, double price, double retailPrice) : this()
         {
+            ButtonContent = "РЕДАКТИРОВАТЬ";
             SelectedModelID = modelID;
             SelectedColorID = colorID;
             SelectedMemoryID = memoryID;
@@ -203,6 +205,18 @@ namespace Менеджер
                 if (retailPrice == value) return;
                 retailPrice = value;
                 OnPropertyChanged(nameof(RetailPrice));
+            }
+        }
+
+        private string buttonContent = string.Empty;
+        public string ButtonContent
+        {
+            get { return buttonContent; }
+            set
+            {
+                if (buttonContent == value) return;
+                buttonContent = value;
+                OnPropertyChanged(nameof(ButtonContent));
             }
         }
 

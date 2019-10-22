@@ -22,15 +22,11 @@
 
                 <materialDesign:ColorZone
               Style="{StaticResource ColorZoneBase}" >
-                    <TextBox Style="{StaticResource ColorZoneTextBox}" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Style="{StaticResource ColorZoneTextBox}" Text="{Binding Path=Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
             materialDesign:HintAssist.Hint="Введите название"
 
             >
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewTextInput">
-                                <ei:CallMethodAction MethodName="PreviewTextInput_Name" TargetObject="{Binding}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                     
                     </TextBox>
 
                 </materialDesign:ColorZone>
@@ -61,8 +57,13 @@
                     </TextBox>
                 </materialDesign:ColorZone>
                 <Button
-       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,4,0,0" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,4,0,0" materialDesign:ShadowAssist.ShadowDepth="Depth0" Cursor="Hand"
                            >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction MethodName="Click" TargetObject="{Binding}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <StackPanel Orientation="Horizontal" TextBlock.Foreground="#FFFAFAFA">
                         <materialDesign:PackIcon
       Kind="Search"
@@ -78,11 +79,12 @@
             </StackPanel>
         </materialDesign:ColorZone>
         <DockPanel LastChildFill="False" Grid.Column="1">
-            <DataGrid Style="{StaticResource DataGridStyle}" DockPanel.Dock="Top" >
+            <DataGrid Style="{StaticResource DataGridStyle}" DockPanel.Dock="Top" ItemsSource="{Binding ProviderModels}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Title}" Header="Название"/>
-                    <DataGridTextColumn Binding="{Binding Title}" Header="Адрес"/>
-                    <DataGridTextColumn Binding="{Binding Title}" Header="Телефон"/>
+                    <DataGridTextColumn Binding="{Binding Telephone}" Header="Телефон"/>
+                    <DataGridTextColumn Binding="{Binding Address}" Header="Адрес"/>
+                   
                 </DataGrid.Columns>
             </DataGrid>
 

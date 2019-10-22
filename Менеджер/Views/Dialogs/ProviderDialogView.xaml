@@ -13,9 +13,25 @@
            >
     <StackPanel Margin="16">
      
-        <TextBox materialDesign:HintAssist.Hint="Название" Style="{StaticResource DialogTextBox}"></TextBox>
-        <TextBox materialDesign:HintAssist.Hint="Адрес" Style="{StaticResource DialogTextBox}"></TextBox>
-        <TextBox  Style="{StaticResource DialogTextBox}"
+        <TextBox materialDesign:HintAssist.Hint="Название" Style="{StaticResource DialogTextBox}">
+            <TextBox.Text>
+                <Binding
+      Path="Title"
+      Mode="TwoWay"
+      UpdateSourceTrigger="PropertyChanged">
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox materialDesign:HintAssist.Hint="Адрес" Style="{StaticResource DialogTextBox}">
+            <TextBox.Text>
+                <Binding
+      Path="Address"
+      Mode="TwoWay"
+      UpdateSourceTrigger="PropertyChanged">
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox Style="{StaticResource DialogTextBox}"
             materialDesign:HintAssist.Hint="Номер телефона"
  MaxLength="17" 
            >
@@ -40,7 +56,16 @@
         </TextBox>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}">
+            <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
+                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Cursor="Hand">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click" >
+                        <ei:CallMethodAction MethodName="Click_AddButton" TargetObject="{Binding }"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
                 ДОБАВИТЬ
             </Button>
             <Button IsCancel="True" Margin="16 0 0 0" Style="{DynamicResource MaterialDesignFlatButton}"
